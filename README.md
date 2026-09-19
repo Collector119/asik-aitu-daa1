@@ -133,13 +133,22 @@ All numbers were produced by `daa.Main` on one machine (Java 21, Ubuntu). Each e
 the median of 5 measured runs after 10 warm-up runs, timed with `System.nanoTime()`. The
 raw data is in `results/results.csv`.
 
-### Execution time, ms, random input
+### Execution time, ms
 
-| n | 1000 | 5000 | 10000 | 50000 | 100000 | 200000 |
-|---|---|---|---|---|---|---|
-| MergeSort | 0.02 | 0.28 | 0.63 | 3.73 | 8.41 | 16.74 |
-| QuickSort | 0.04 | 0.23 | 0.50 | 2.85 | 5.91 | 14.21 |
-| DeterministicSelect | 0.01 | 0.08 | 0.24 | 1.31 | 2.49 | 5.22 |
+| Algorithm | Input | 1000 | 5000 | 10000 | 50000 | 100000 | 200000 |
+|---|---|---|---|---|---|---|---|
+| MergeSort | random | 0.02 | 0.28 | 0.63 | 3.73 | 8.41 | 16.74 |
+| MergeSort | sorted | 0.01 | 0.09 | 0.18 | 1.09 | 2.36 | 4.93 |
+| MergeSort | reverse sorted | 0.02 | 0.11 | 0.21 | 1.28 | 2.93 | 5.41 |
+| MergeSort | duplicate heavy | 0.02 | 0.18 | 0.37 | 2.08 | 4.50 | 8.86 |
+| QuickSort | random | 0.04 | 0.23 | 0.50 | 2.85 | 5.91 | 14.21 |
+| QuickSort | sorted | 0.02 | 0.12 | 0.25 | 1.33 | 2.71 | 6.08 |
+| QuickSort | reverse sorted | 0.03 | 0.13 | 0.28 | 1.51 | 3.02 | 6.78 |
+| QuickSort | duplicate heavy | 0.07 | 1.29 | 4.95 | 112.94 | 525.07 | 2254.01 |
+| DeterministicSelect | random | 0.01 | 0.08 | 0.24 | 1.31 | 2.49 | 5.22 |
+
+Closest Pair runs on its own range of sizes, because the brute-force reference it is
+checked against is only practical up to a few thousand points:
 
 | n | 1000 | 2000 | 5000 | 10000 | 50000 | 100000 |
 |---|---|---|---|---|---|---|
@@ -156,19 +165,6 @@ raw data is in `results/results.csv`.
 | n | 1000 | 2000 | 5000 | 10000 | 50000 | 100000 |
 |---|---|---|---|---|---|---|
 | ClosestPair | 10 | 11 | 12 | 13 | 16 | 17 |
-
-### Effect of input type on the sorters, time in ms
-
-| Algorithm | Input | 1000 | 5000 | 10000 | 50000 | 100000 | 200000 |
-|---|---|---|---|---|---|---|---|
-| MergeSort | random | 0.02 | 0.28 | 0.63 | 3.73 | 8.41 | 16.74 |
-| MergeSort | sorted | 0.01 | 0.09 | 0.18 | 1.09 | 2.36 | 4.93 |
-| MergeSort | reverse sorted | 0.02 | 0.11 | 0.21 | 1.28 | 2.93 | 5.41 |
-| MergeSort | duplicate heavy | 0.02 | 0.18 | 0.37 | 2.08 | 4.50 | 8.86 |
-| QuickSort | random | 0.04 | 0.23 | 0.50 | 2.85 | 5.91 | 14.21 |
-| QuickSort | sorted | 0.02 | 0.12 | 0.25 | 1.33 | 2.71 | 6.08 |
-| QuickSort | reverse sorted | 0.03 | 0.13 | 0.28 | 1.51 | 3.02 | 6.78 |
-| QuickSort | duplicate heavy | 0.07 | 1.29 | 4.95 | 112.94 | 525.07 | 2254.01 |
 
 ### Comparisons at n = 200000
 
@@ -336,6 +332,5 @@ Test results:
 
 ![Test results](docs/screenshots/test-results.png)
 
-Experimental results in `results/results.csv`:
-
-![Results table](docs/screenshots/results-table.png)
+The plots and the result tables are in section C above; the raw measurements they are
+drawn from are in `results/results.csv`.
