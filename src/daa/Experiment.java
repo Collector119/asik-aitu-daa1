@@ -21,7 +21,7 @@ public class Experiment {
     private static final int[] ARRAY_SIZES = {1000, 5000, 10000, 50000, 100000, 200000};
     private static final int[] POINT_COUNTS = {1000, 2000, 5000, 10000, 50000, 100000};
     private static final int DUPLICATE_VALUE_RANGE = 10;
-    private static final int WARMUP_RUNS = 5;
+    private static final int WARMUP_RUNS = 10;
     private static final int WARMUP_SIZE = 20000;
     private static final int MEASURED_RUNS = 5;
 
