@@ -1,0 +1,89 @@
+package daa;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
+class MergeSorterTest {
+
+    private final Random random = new Random(1);
+
+    @Test
+    void sortsRandomArrayLikeArraysSort() {
+        for (int size = 1; size <= 500; size += 37) {
+            int[] array = randomArray(size, Integer.MAX_VALUE);
+            int[] expected = array.clone();
+            Arrays.sort(expected);
+            MergeSorter.sort(array, new Metrics());
+            assertArrayEquals(expected, array);
+        }
+    }
+
+    @Test
+    void sortsSortedArray() {
+        int[] array = randomArray(1000, Integer.MAX_VALUE);
+        Arrays.sort(array);
+        int[] expected = array.clone();
+        MergeSorter.sort(array, new Metrics());
+        assertArrayEquals(expected, array);
+    }
+
+    @Test
+    void sortsReverseSortedArray() {
+        int[] array = randomArray(1000, Integer.MAX_VALUE);
+        Arrays.sort(array);
+        reverse(array);
+        int[] expected = array.clone();
+        Arrays.sort(expected);
+        MergeSorter.sort(array, new Metrics());
+        assertArrayEquals(expected, array);
+    }
+
+    @Test
+    void sortsDuplicateHeavyArray() {
+        int[] array = randomArray(1000, 5);
+        int[] expected = array.clone();
+        Arrays.sort(expected);
+        MergeSorter.sort(array, new Metrics());
+        assertArrayEquals(expected, array);
+    }
+
+    @Test
+    void sortsEmptyAndSingleElementArrays() {
+        int[] empty = new int[0];
+        assertDoesNotThrow(() -> MergeSorter.sort(empty, new Metrics()));
+        assertArrayEquals(new int[0], empty);
+
+        int[] single = {42};
+        MergeSorter.sort(single, new Metrics());
+        assertArrayEquals(new int[]{42}, single);
+    }
+
+    @Test
+    void allocatesAuxiliaryBufferOnlyOnce() {
+        int size = 10000;
+        Metrics metrics = new Metrics();
+        MergeSorter.sort(randomArray(size, Integer.MAX_VALUE), metrics);
+        assertArrayEquals(new long[]{size}, new long[]{metrics.getAllocations()});
+    }
+
+    private int[] randomArray(int size, int bound) {
+        int[] array = new int[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = bound == Integer.MAX_VALUE ? random.nextInt() : random.nextInt(bound);
+        }
+        return array;
+    }
+
+    private void reverse(int[] array) {
+        for (int i = 0; i < array.length / 2; i++) {
+            int temporary = array[i];
+            array[i] = array[array.length - 1 - i];
+            array[array.length - 1 - i] = temporary;
+        }
+    }
+}
