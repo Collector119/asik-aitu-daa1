@@ -2,8 +2,6 @@
 
 Anarov Daniyal, SE-2530, Astana IT University.
 
-Repository: https://github.com/Collector119/asik-aitu-daa1
-
 ## A. Project Overview
 
 The purpose of this assignment is to implement four classic divide-and-conquer
@@ -166,26 +164,11 @@ checked against is only practical up to a few thousand points:
 |---|---|---|---|---|---|---|
 | ClosestPair | 10 | 11 | 12 | 13 | 16 | 17 |
 
-### Comparisons at n = 200000
-
-| Algorithm | Input | Comparisons | Comparisons / (n log₂ n) |
-|---|---|---|---|
-| MergeSort | random | 3,479,056 | 0.99 |
-| MergeSort | sorted | 1,588,032 | 0.45 |
-| MergeSort | reverse sorted | 2,517,632 | 0.72 |
-| MergeSort | duplicate heavy | 3,314,675 | 0.94 |
-| QuickSort | random | 4,229,649 | 1.20 |
-| QuickSort | sorted | 4,219,227 | 1.20 |
-| QuickSort | reverse sorted | 4,192,554 | 1.19 |
-| QuickSort | duplicate heavy | 2,000,647,299 | 568.06 |
-
 ### Plots
 
 ![Execution time vs input size](docs/plots/time_vs_n.png)
 
 ![Recursion depth vs input size](docs/plots/recursion_depth_vs_n.png)
-
-![Effect of input structure on sorting time](docs/plots/time_by_input_type.png)
 
 ## D. Discussion
 
@@ -316,7 +299,7 @@ quantity. My QuickSort recurses into the smaller partition first, which guarante
 depth of O(log n), and the measurements confirm it — depth 4 on the duplicate-heavy
 input. But that same input drives the running time to 2.25 seconds and two billion
 comparisons, because the Lomuto partition cannot split a block of equal keys. Seeing a
-shallow stack and a quadratic running time in the same row of the results table made the
+shallow stack and a quadratic running time in the same row of `results.csv` made the
 distinction concrete in a way the lecture notes did not. The implementation detail I am
 most satisfied with is the opposite case: reusing one auxiliary buffer across the whole
 MergeSort, which the `allocatesAuxiliaryBufferOnlyOnce` test pins down by asserting that
